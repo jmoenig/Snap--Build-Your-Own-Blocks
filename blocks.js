@@ -2023,6 +2023,14 @@ BlockMorph.prototype.userMenu = function () {
     }
 
     menu.addItem(
+        "hide", 
+        function(){
+            this.hide();
+        }
+    );
+
+
+    menu.addItem(
         "duplicate",
         function () {
             this.fullCopy().pickUp(world);
@@ -4833,6 +4841,16 @@ ScriptsMorph.prototype.userMenu = function () {
             ide = blockEditor.target.parentThatIsA(IDE_Morph);
         }
     }
+
+    menu.addItem(
+        'show all',
+        'showall'
+    );
+    menu.addItem(
+        'hide all',
+        'hideall'
+    );
+    
     menu.addItem('clean up', 'cleanUp', 'arrange scripts\nvertically');
     menu.addItem('add comment', 'addComment');
     if (this.lastDroppedBlock) {
@@ -4879,6 +4897,29 @@ ScriptsMorph.prototype.userMenu = function () {
 };
 
 // ScriptsMorph user menu features:
+
+ScriptsMorph.prototype.showall = function () {
+     this.children.forEach(function (child) {
+         if (child instanceof CommentMorph && child.block) {
+             child.show(); // skip anchored comments
+         }
+         if (child instanceof BlockMorph) {
+             child.show();
+         }
+     });
+ }
+
+ ScriptsMorph.prototype.hideall = function () {
+     this.children.forEach(function (child) {
+         if (child instanceof CommentMorph && child.block) {
+             child.hide(); // skip anchored comments
+         }
+         if (child instanceof BlockMorph) {
+             child.hide();
+         }
+     });
+ }
+
 
 ScriptsMorph.prototype.cleanUp = function () {
     var origin = this.topLeft(),

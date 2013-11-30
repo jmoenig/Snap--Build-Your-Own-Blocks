@@ -2379,7 +2379,6 @@ IDE_Morph.prototype.projectMenu = function () {
         },
         'Select categories of additional blocks to add to this project.'
     );
-
     menu.popup(world, pos);
 };
 
