@@ -77,6 +77,25 @@ Localizer.prototype.languages = function () {
     return arr.sort();
 };
 
+Localizer.prototype.load = function (lang, translation) {
+    if (this.dict[lang].language_name === 'Translation') {
+        var crowdin = document.createElement('script');
+        crowdin.id = 'crowdin';
+        crowdin.src = 'jipt.js'
+        translation.onload = function () {
+            jipt();
+        };
+        document.head.insertBefore(crowdin, document.head.firstChild);
+    } else {
+        var crowdin = document.getElementById('crowdin')
+        if (crowdin) {
+            // TODO stop jipt()
+            document.head.removeChild(crowdin);
+        }
+    }
+    this.dict[lang] = translation || {};
+}
+
 Localizer.prototype.languageName = function (lang) {
     return this.dict[lang].language_name || lang;
 };
@@ -124,20 +143,18 @@ SnapTranslator.dict.en = {
         'jens@moenig.org',
     'last_changed':
         '2012-10-16',
+};
 
-    // long strings look-up only
-    'file menu import hint':
-        'load an exported project file\nor block library, a costume\n'
-            + 'or a sound',
-    'settings menu prefer empty slots hint':
-        'check to focus on empty slots\nwhen dragging & '
-                + 'dropping reporters',
-    'costumes tab help':
-        'import a picture from another web page or from\n'
-            + 'a file on your computer by dropping it here\n',
-    'block deletion dialog text':
-        'Are you sure you want to delete this\n'
-            + 'custom block and all its instances?'
+SnapTranslator.dict.af = {
+    // meta information
+    'language_name':
+        'Translation',
+    'language_translator':
+        'Simon Claessens',
+    'translator_e-mail':
+        'gagalago@gmail.com',
+    'last_changed':
+        '2013-12-29',
 };
 
 SnapTranslator.dict.de = {
