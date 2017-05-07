@@ -252,6 +252,12 @@ SpriteMorph.prototype.initBlocks = function () {
             category: 'motion',
             spec: 'if on edge, bounce'
         },
+        doSetRotationStyle: {
+            only: SpriteMorph,
+            type: 'command',
+            category: 'motion',
+            spec: 'set rotation style to %rotateStyle'
+        },
         xPosition: {
             only: SpriteMorph,
             type: 'reporter',
@@ -1773,6 +1779,8 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('setYPosition'));
         blocks.push('-');
         blocks.push(block('bounceOffEdge'));
+        blocks.push('-');
+        blocks.push(block('doSetRotationStyle'));
         blocks.push('-');
         blocks.push(watcherToggle('xPosition'));
         blocks.push(block('xPosition'));
